@@ -1,0 +1,635 @@
+    <style>
+        .input-group-addon {
+            min-width:200px;// if you want width please write here //
+            text-align:right;
+        }
+        .label_align {
+             text-align:right;
+        }
+    </style>
+     
+<!-- -----------------------------------------------------  --> 
+<!-- v 0.5.0                                                -->
+<!--                                                        -->
+<!-- HISTORY:                                               -->
+<!--   Date:   7/11/2018                                   -->
+<!-- -----------------------------------------------------  --> 
+
+<!-- Added for mobile compatability  https://developer.mozilla.org/en/docs/Mozilla/Mobile/Viewport_meta_tag -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!-- --------------------------------------------------------  Contents 
+
+<div class="modal-header">
+    <div class="form-group row">
+        <div class="col-sm-2"> </div>
+        <div class="col-sm-7">
+            <h2 class="text-left">
+                <span class="fa fa-address-card-o" aria-hidden="true"></span>
+                Sales Order
+                <small>...</small>
+            </h2>
+        </div>
+    </div>
+ </div>
+-->
+
+		
+<!-- --------------------------------------------------------  Control Group 
+<div class="form-group row ">
+
+     <label class="control-label col-sm-2"></label>
+     <div class="col-sm-7 ">
+ 
+            <div class="form-inline ">
+                <input ng-disabled="UsersForm.$invalid" 
+                       class="btn btn-primary" type="button" 
+                       value="&nbsp;Save&nbsp;" id="btUsersUpdate" 
+                       ng-hide="_lockEdit" 
+                       ng-click="save_click()"  />
+
+                    <input class="btn btn-primary" type="button" 
+                           value="&nbsp;Edit &nbsp;" 
+                           id="btnEdit" ng-click="edit_click()" 
+                           ng-hide="!_lockEdit" 
+                            />
+
+                <input class="btn btn-warning" type="button" 
+                       value="Cancel" id="btUsersCancel"
+                       ng-click="cancel_click()"  />
+            </div>
+      </div>
+ </div> 
+-->
+<!-- End Footer -->
+
+ <!-- -->
+ <!-- -->
+ <!-- -->
+			  
+
+  
+
+<form  >  
+    <div class="container-fluid">  
+
+
+        <div class="col-sm-12">
+            <label class="control-label col-sm-1"></label>
+            <div uib-alert close="closeError()" class="alert-danger col-sm-10" ng-if="_errorFlag">
+                <strong>Error!</strong>  <span ng-bind="_Error"> </span>  
+            </div>
+        </div> <!-- End Error block -->
+
+        <div class="col-sm-12">
+            <label class="control-label col-sm-1"></label>
+            <div uib-alert class="alert-info col-sm-10" ng-if="_operationFlag" close="closeAlert()" 
+                    dismiss-on-timeout="2000">
+                <strong>Info!</strong>   <span ng-bind="_Operation"> </span>  
+            </div>
+        </div> <!-- End Error block -->
+
+
+       <div class="form-inline  col-sm-12">  
+             <label class="col-sm-1"> <!--  Place possible header at this point --></label> 
+       </div> <!-- End row -->   
+
+
+        <div class="form-inline col-sm-12">
+            <div class=" col-sm-8  col-xs-12">
+                  <h1><span class="fa fa-address-card-o" aria-hidden="true"></span>
+                      Sales Order: <span>{{Item.Id}} </span> </h1> 
+            </div>
+
+            <div class=" pull-right col-sm-4 col-xs-12" style="padding-top:25px">
+                <button  ng-click="btnSave_click()" class="btn btn-primary" type="submit" id="btnSave" 
+                       ng-hide="_lockEdit" >
+                        &nbsp;&nbsp; Save  &nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-floppy-save"></span>
+                </button>
+                <button ng-click="btnCancel_click()" class="btn btn-warning" type="submit" id="btnCancel"
+                    >
+                    &nbsp;&nbsp; Cancel  &nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+
+                <button ng-click="btnEdit_click()"  class="btn btn-primary"  type="submit" id="btnEdit" 
+                       ng-hide="!_lockEdit" >
+                       &nbsp;Edit &nbsp;
+                       <span class="glyphicon  glyphicon-edit"></span>
+                 </button>                                      
+
+            
+            <!-- 
+                <div class=" pull-right col-sm-4 col-xs-12" style="padding-top:25px">
+                <button ng-disabled="false" ng-click="btnSave_click()" class="btn btn-primary" type="submit" id="btnSave" >
+                        &nbsp;&nbsp; Save  &nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-floppy-save"></span>
+                </button>
+                <button ng-click="btnCancel_click()" class="btn btn-warning" type="submit" id="btnCancel">
+                    &nbsp;&nbsp; Cancel  &nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+            -->
+
+        </div>
+
+
+
+
+
+       <div class="form-inline  col-sm-12">  
+             <label class="col-sm-1">  Customer:</label> 
+       </div> <!-- End row -->   
+ 
+   <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Customer Name: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.CustomerName"                      
+                                   name="CustomerName"        id="idStockOrder_CustomerName"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+     
+     <div class="col-sm-3  input-group " style="padding-left:0px ;padding-right:0px"> 
+                                        
+                      <span class="input-group-addon cell-width label_align " style="min-width:100px;"> Date Ordered: </span>         
+                      <input ng-disabled="true" 
+                                ng-model="Item.DateOrdered_formated"  class="form-control" type="text" /> 
+    
+                         <input          ng-model="Item.DateOrdered"     
+                             uib-datepicker-popup="{{format}}" 
+                                          ng-hide="true"     
+                                          is-open="popupDateOrdered.opened" 
+                               datepicker-options="dateOptions" 
+                                       close-text="Close" 
+                                alt-input-formats="altInputFormats"  type="text"  class="form-control"   /> 
+    
+                         <span class="input-group-btn" > 
+                             <button ng-click="openDateOrdered()"   
+                                     class="btn btn-default date_button" type="button" > 
+                                  <i class="glyphicon glyphicon-calendar"></i> 
+                             </button> 
+                         </span> 
+    
+       </div> <!-- End col-sm-3 for DateOrdered -->     
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Sales Order #: </span>                
+                    <input  placeholder=" "                                          
+                                   type="number" ng-model="Item.Id"                      
+                                   name="SalesOrder"        id="idStockOrder_SalesOrder"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Company Name (opt): </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.CompanyNameopt"                      
+                                   name="CompanyNameopt"        id="idStockOrder_CompanyNameopt"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+     
+     <div class="col-sm-3  input-group " style="padding-left:0px ;padding-right:0px"> 
+                                        
+                      <span class="input-group-addon cell-width label_align " style="min-width:100px;"> Date Due: </span>         
+                      <input ng-disabled="true" 
+                                ng-model="Item.DateDue_formated"  class="form-control" type="text" /> 
+    
+                         <input          ng-model="Item.DateDue"     
+                             uib-datepicker-popup="{{format}}" 
+                                          ng-hide="true"     
+                                          is-open="popupDateDue.opened" 
+                               datepicker-options="dateOptions" 
+                                       close-text="Close" 
+                                alt-input-formats="altInputFormats"  type="text"  class="form-control"   /> 
+    
+                         <span class="input-group-btn" > 
+                             <button ng-click="openDateDue()"   
+                                     class="btn btn-default date_button" type="button" > 
+                                  <i class="glyphicon glyphicon-calendar"></i> 
+                             </button> 
+                         </span> 
+    
+       </div> <!-- End col-sm-3 for DateDue -->     
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Volusion #: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.Volusion"                      
+                                   name="Volusion"        id="idStockOrder_Volusion"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Customer PO#: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.CustomerPO"                      
+                                   name="CustomerPO"        id="idStockOrder_CustomerPO"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Deposit Paid: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.DepositPaid"                      
+                                   name="DepositPaid"        id="idStockOrder_DepositPaid"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Added to WIP: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.AddedtoWIP"                      
+                                   name="AddedtoWIP"        id="idStockOrder_AddedtoWIP"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>        </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+      <label class="col-sm-1">  Vehicle:</label> 
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Vehicle Make & Model: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.VehicleMakeModel"                      
+                                   name="VehicleMakeModel"        id="idStockOrder_VehicleMakeModel"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Engine Type: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.EngineType"                      
+                                   name="EngineType"        id="idStockOrder_EngineType"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Year: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.Year"                      
+                                   name="Year"        id="idStockOrder_Year"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Application (race / street / track): </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.Applicationracestreettrack"                      
+                                   name="Applicationracestreettrack"        id="idStockOrder_Applicationracestreettrack"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>        </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+      <label class="col-sm-1">  Kit:</label> 
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Caliper Type : </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.CaliperType"                      
+                                   name="CaliperType"        id="idStockOrder_CaliperType"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Disc Size and Slot Type : </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.DiscSizeandSlotType"                      
+                                   name="DiscSizeandSlotType"        id="idStockOrder_DiscSizeandSlotType"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Caliper Colour : </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.CaliperColour"                      
+                                   name="CaliperColour"        id="idStockOrder_CaliperColour"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Kit / Caliper QTY: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.KitCaliperQTY"                      
+                                   name="KitCaliperQTY"        id="idStockOrder_KitCaliperQTY"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>        </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+      <label class="col-sm-1">  Other:</label> 
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Hoses: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.Hoses"                      
+                                   name="Hoses"        id="idStockOrder_Hoses"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Hoses Additional Info: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.HosesAdditionalInfo"                      
+                                   name="HosesAdditionalInfo"        id="idStockOrder_HosesAdditionalInfo"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Front Brake Pad Compound: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.FrontBrakePadCompound"                      
+                                   name="FrontBrakePadCompound"        id="idStockOrder_FrontBrakePadCompound"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Brake Fluid: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.BrakeFluid"                      
+                                   name="BrakeFluid"        id="idStockOrder_BrakeFluid"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Brake Fluid QTY: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.BrakeFluidQTY"                      
+                                   name="BrakeFluidQTY"        id="idStockOrder_BrakeFluidQTY"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>   
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Rear Brake Pad Compound: </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.RearBrakePadCompound"                      
+                                   name="RearBrakePadCompound"        id="idStockOrder_RearBrakePadCompound"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+  
+   <div class="input-group col-sm-3 ">            
+                    <span class="input-group-addon cell-width label_align ">Additional Items (eg  rear discs): </span>                
+                    <input  placeholder=" "                                          
+                                   type="text" ng-model="Item.AdditionalItemsegreardiscs"                      
+                                   name="AdditionalItemsegreardiscs"        id="idStockOrder_AdditionalItemsegreardiscs"             
+                                  class="form-control"   ng-disabled="_lockEdit"                     
+                                  />                                                                     
+                                                                                                         
+   </div>                                                                                                
+       </div> <!-- End row -->   
+ 
+       <div class="form-inline  col-sm-12">  
+<div class="col-sm-1">   </div>        </div> <!-- End row -->   
+ 
+      <label class="col-sm-1">  Notes::</label> 
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>     <div class="form-group col-sm-11">                                                          
+                        <label class="col-sm-2 label_align" for="idStockOrder_PlatformCode" >Platform Code :</label>         
+                        <div  class="col-sm-10 " >                                                            
+                       <input  placeholder=" "                                                            
+                                      type="text"                                                         
+                                  ng-model="Item.PlatformCode"                                        
+                                      name="PlatformCode"                                                   
+                                        id="idStockOrder_PlatformCode"                                      
+                                     class="form-control "                                                
+                               ng-disabled="_lockEdit"   />                                               
+                    </div>                                                                                  
+   </div>                                                                                                   
+       </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>     <div class="form-group col-sm-11">                                                          
+                        <label class="col-sm-2 label_align" for="idStockOrder_HatCode" >Hat Code :</label>         
+                        <div  class="col-sm-10 " >                                                            
+                       <input  placeholder=" "                                                            
+                                      type="text"                                                         
+                                  ng-model="Item.HatCode"                                        
+                                      name="HatCode"                                                   
+                                        id="idStockOrder_HatCode"                                      
+                                     class="form-control "                                                
+                               ng-disabled="_lockEdit"   />                                               
+                    </div>                                                                                  
+   </div>                                                                                                   
+       </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>     <div class="form-group col-sm-11">                                                          
+                        <label class="col-sm-2 label_align" for="idStockOrder_BracketCode" >Bracket Code :</label>         
+                        <div  class="col-sm-10 " >                                                            
+                       <input  placeholder=" "                                                            
+                                      type="text"                                                         
+                                  ng-model="Item.BracketCode"                                        
+                                      name="BracketCode"                                                   
+                                        id="idStockOrder_BracketCode"                                      
+                                     class="form-control "                                                
+                               ng-disabled="_lockEdit"   />                                               
+                    </div>                                                                                  
+   </div>                                                                                                   
+       </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>     <div class="form-group col-sm-11">                                                          
+                        <label class="col-sm-2 label_align" for="idStockOrder_CaliperOrientation" >Caliper Orientation :</label>         
+                        <div  class="col-sm-10 " >                                                            
+                       <input  placeholder=" "                                                            
+                                      type="text"                                                         
+                                  ng-model="Item.CaliperOrientation"                                        
+                                      name="CaliperOrientation"                                                   
+                                        id="idStockOrder_CaliperOrientation"                                      
+                                     class="form-control "                                                
+                               ng-disabled="_lockEdit"   />                                               
+                    </div>                                                                                  
+   </div>                                                                                                   
+       </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>     <div class="form-group col-sm-11">                                                          
+                        <label class="col-sm-2 label_align" for="idStockOrder_PistonRatio" >Piston Ratio :</label>         
+                        <div  class="col-sm-10 " >                                                            
+                       <input  placeholder=" "                                                            
+                                      type="text"                                                         
+                                  ng-model="Item.PistonRatio"                                        
+                                      name="PistonRatio"                                                   
+                                        id="idStockOrder_PistonRatio"                                      
+                                     class="form-control "                                                
+                               ng-disabled="_lockEdit"   />                                               
+                    </div>                                                                                  
+   </div>                                                                                                   
+       </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>     <div class="form-group col-sm-11">                                                          
+                        <label class="col-sm-2 label_align" for="idStockOrder_Serials" >Serial #'s :</label>         
+                        <div  class="col-sm-10 " >                                                            
+                       <input  placeholder=" "                                                            
+                                      type="text"                                                         
+                                  ng-model="Item.Serials"                                        
+                                      name="Serials"                                                   
+                                        id="idStockOrder_Serials"                                      
+                                     class="form-control "                                                
+                               ng-disabled="_lockEdit"   />                                               
+                    </div>                                                                                  
+   </div>                                                                                                   
+       </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>     <div class="form-group col-sm-11">                                                          
+                        <label class="col-sm-2 label_align" for="idStockOrder_Discfloatsystem" >Disc float system :</label>         
+                        <div  class="col-sm-10 " >                                                            
+                       <input  placeholder=" "                                                            
+                                      type="text"                                                         
+                                  ng-model="Item.Discfloatsystem"                                        
+                                      name="Discfloatsystem"                                                   
+                                        id="idStockOrder_Discfloatsystem"                                      
+                                     class="form-control "                                                
+                               ng-disabled="_lockEdit"   />                                               
+                    </div>                                                                                  
+   </div>                                                                                                   
+       </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+      <label class="col-sm-1"> <h1> {{Item.SalesOrderID}}: </h1></label> 
+    <div class="form-group col-sm-11">                                                          
+                        <label class="col-sm-2 label_align" for="idStockOrder_Radialmountbolts" >Radial mount bolts :</label>         
+                        <div  class="col-sm-10 " >                                                            
+                       <input  placeholder=" "                                                            
+                                      type="text"                                                         
+                                  ng-model="Item.Radialmountbolts"                                        
+                                      name="Radialmountbolts"                                                   
+                                        id="idStockOrder_Radialmountbolts"                                      
+                                     class="form-control "                                                
+                               ng-disabled="_lockEdit"   />                                               
+                    </div>                                                                                  
+   </div>                                                                                                   
+       </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>     <div class="form-group col-sm-11">                                                          
+                        <label class="col-sm-2 label_align" for="idStockOrder_Axialmountboltsopt" >Axial mount bolts (opt) :</label>         
+                        <div  class="col-sm-10 " >                                                            
+                       <input  placeholder=" "                                                            
+                                      type="text"                                                         
+                                  ng-model="Item.Axialmountboltsopt"                                        
+                                      name="Axialmountboltsopt"                                                   
+                                        id="idStockOrder_Axialmountboltsopt"                                      
+                                     class="form-control "                                                
+                               ng-disabled="_lockEdit"   />                                               
+                    </div>                                                                                  
+   </div>                                                                                                   
+       </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>        </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>        </div> <!-- End row -->   
+ 
+       <div class="col-sm-12">  
+<div class="col-sm-1">   </div>        </div> <!-- End row -->   
+ 
+    </div> <!-- End container-fluid --> 
+
+        <div uib-alert close="closeError()" class="alert-danger" ng-if="_errorFlag">
+			<strong>Error!</strong>   <span ng-bind="_debugMessage"> </span>  
+        </div>
+
+</form> <!-- End form: StockOrder--> 
+
+ <!-- -->
+ <!-- -->
+ <!-- -->
+
+<div uib-alert close="closeError()" class="alert-danger" ng-if="_errorFlag">
+    <strong>Error!</strong>  {{_debugMessage}}
+</div>
+        
+
+</form> <!-- id="UsersFrmCtrl" -->
+ 
+	
+
+        
+

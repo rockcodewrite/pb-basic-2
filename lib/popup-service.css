@@ -1,0 +1,36 @@
+/* Below css already include in directive and therefore not required separately*/
+.modal-spinner .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: 15px;
+}
+.modal-spinner-text .modal-content{
+    text-align: left;
+}
+
+.modal-spinner .modal-dialog {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 120px;
+    height: 300px;
+}
+
+.modal-spinner-text .modal-dialog{
+    text-align: left;
+    width: 350px;
+}
+
+
+/*  Dave added 2020-03-18 */
+
+.modal-backdrop.in {
+    opacity: 1.99;
+}

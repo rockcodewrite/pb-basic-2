@@ -1,0 +1,44 @@
+{
+	"$id": "1",
+	"ID": 1993,
+	"LoginName": "coleman",
+	"UserTypeID": null,
+	"SupplierClientID": 2754,
+	"Active": true,
+	"GoogleEnabled": true,
+	"TenantCode": "RAPTOR",
+	"Roles": 
+	 [
+			{
+				"$id": "3",
+				"ID": 2,
+				"Authority": "FISHTANK",
+				"Description": "Gives visibility for Live tracking."
+			},
+			{
+				"$id": "4",
+				"ID": 3,
+				"Authority": "REPORTS",
+				"Description": "Gives visibility of reports to clients"
+			},
+			{
+				"$id": "5",
+				"ID": 4,
+				"Authority": "ADMIN",
+				"Description": null
+			},
+			{
+				"$id": "6",
+				"ID": 8,
+				"Authority": "FLEET",
+				"Description": null
+			},
+			{
+				"$id": "7",
+				"ID": 27,
+				"Authority": "GEOFENCES",
+				"Description": "Allows visibilty of geofences for client"
+			}
+    ]
+
+}

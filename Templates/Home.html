@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="form-group row">
+        <label class="control-label col-sm-2"></label>
+        <!-- Error Message -->
+        <div uib-alert close="closeError()" class="alert-danger" ng-if="_errorFlag">
+            <strong>Error!</strong>  {{_Error}}
+        </div>
+        <!-- Warning Message -->
+        <div uib-alert class="alert-info" ng-if="_operationFlag" close="closeAlert()"
+             dismiss-on-timeout="2000">
+            <strong>Info!</strong>  {{_Operation}} Operation Completed!
+        </div>
+    </div>
+
+</body>
+</html>

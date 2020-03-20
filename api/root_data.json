@@ -1,0 +1,23 @@
+	[
+		{
+		"id": "/SalesOrder",
+		"text": "Sales Orders",
+		"children": true,
+		"icon": "fa fa-address-card-o",
+		"type": "table",
+		"data": {
+			"page": 0,
+			"count": 104,
+			"size": 20,
+			"total": 2090,
+			"search": ""
+		},
+		"state": {
+			"selected": false,
+			"disabled": false,
+			"opened": true
+		},
+		"parentType": null
+	}
+	
+]
